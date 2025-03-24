@@ -18,8 +18,13 @@ variable "private_subnet_cidr" {
   type        = string
 }
 
-variable "availability_zone" {
-  description = "Availability zone where subnets will be created"
+variable "public_availability_zone" {
+  description = "Availability zone where public subnets will be created"
+  type        = string
+}
+
+variable "private_availability_zone" {
+  description = "Availability zone where private subnets will be created"
   type        = string
 }
 
