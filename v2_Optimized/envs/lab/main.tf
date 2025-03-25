@@ -2,7 +2,7 @@
 terraform {
   required_providers {
     aws = {
-      version = "~> 5.92.0"  # Version Pin
+      version = "~> 5.92.0" # Version Pin
     }
   }
 }
@@ -14,13 +14,13 @@ provider "aws" {
 
 #Deploy network configurations
 module "network" {
-  source              = "../../modules/network"
-  vpc_cidr            = var.vpc_cidr
-  public_subnet_cidr  = var.public_subnet_cidr
-  private_subnet_cidr = var.private_subnet_cidr
-  public_availability_zone   = var.public_availability_zone
-  private_availability_zone   = var.private_availability_zone
-  tags                = var.tags
+  source                    = "../../modules/network"
+  vpc_cidr                  = var.vpc_cidr
+  public_subnet_cidr        = var.public_subnet_cidr
+  private_subnet_cidr       = var.private_subnet_cidr
+  public_availability_zone  = var.public_availability_zone
+  private_availability_zone = var.private_availability_zone
+  tags                      = var.tags
 }
 
 #Deploy key for ssh
