@@ -1,4 +1,13 @@
-# Configure AWS provider
+#Define Required Provider
+terraform {
+  required_providers {
+    aws = {
+      version = "~> 5.92.0"  # Version Pin
+    }
+  }
+}
+
+#Define Provider
 provider "aws" {
   region = var.region
 }
