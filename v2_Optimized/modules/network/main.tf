@@ -60,6 +60,21 @@ resource "aws_route_table_association" "lab_public_rt_assoc" {
   route_table_id = aws_route_table.lab_public_rt.id
 }
 
+# Create Route Table for Private Subnet
+resource "aws_route_table" "lab_private_rt" {
+  vpc_id = aws_vpc.lab_vpc.id
+
+  tags = merge(var.tags, {
+    Name = "Lab-RT-Private"
+  })
+}
+
+# Associate Route Table with Private Subnet
+resource "aws_route_table_association" "lab_private_rt_assoc" {
+  subnet_id      = aws_subnet.private_subnet.id
+  route_table_id = aws_route_table.lab_private_rt.id
+}
+
 # Public Security Group
 resource "aws_security_group" "lab_public_sg" {
   name        = "Lab-Public-SG"
@@ -132,6 +147,17 @@ resource "aws_network_acl_rule" "public_inbound_ssh" {
   cidr_block     = "0.0.0.0/0"
   from_port      = 22
   to_port        = 22
+}
+
+resource "aws_network_acl_rule" "public_inbound_ephemeral" {
+  network_acl_id = aws_network_acl.public_nacl.id
+  rule_number    = 110
+  egress         = false
+  protocol       = "tcp"
+  rule_action    = "allow"
+  cidr_block     = var.private_subnet_cidr
+  from_port      = 1024
+  to_port        = 65535
 }
 
 resource "aws_network_acl_rule" "public_outbound_all" {
